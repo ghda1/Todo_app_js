@@ -1,12 +1,35 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-<body>
-    
-</body>
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="to do app" />
+    <meta name="keywords" content="to do" />
+    <link rel="stylesheet" href="./style.css" />
+    <title>To Do App</title>
+  </head>
+  <body>
+    <main class="container">
+      <form id="todo-form">
+        <div class="todo-task">
+          <label for="todo">Your To Do Task: </label>
+          <input id="todo" type="text" required />
+        </div>
+        <div class="todo-description">
+          <label for="description">Description: </label>
+          <input type="text" id="description" required />
+        </div>
+        <div class="add-btn">
+          <button type="submit" id="add-task">Add Task</button>
+        </div>
+      </form>
+      <p id="notification"></p>
+      <div id="tasks">
+        <ul id="tasks-list"></ul>
+      </div>
+      <p id="total"></p>
+    </main>
+    <script src="./index.js"></script>
+  </body>
 </html>
