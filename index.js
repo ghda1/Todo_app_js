@@ -7,6 +7,7 @@ const formElement = document.getElementById("todo-form");
 const tasksList = document.getElementById("tasks-list");
 const notificationElement = document.getElementById("notification");
 const totalElement = document.getElementById("total");
+const searchElement = document.getElementById("search-task");
 
 let isEditing = false;
 let taskBeingEdited = null;
@@ -15,11 +16,8 @@ function updateTotalTasks() {
   totalElement.textContent = "Total Tasks: " + tasks.length;
 }
 
-function renderTasks() {
+function renderTasks(tasks) {
   tasksList.innerHTML = "";
-
-  tasks = JSON.parse(localStorage.getItem("tasks")) || [];
-
   tasks.forEach((task) => {
     const list = document.createElement("li");
     list.textContent = `${task.toDo}: ${task.description}`;
@@ -68,7 +66,7 @@ function deletTaskById(id) {
   setTimeout(() => {
     notificationElement.textContent = "";
   }, 1000);
-  renderTasks();
+  renderTasks(tasks);
 }
 
 function editTaskById(id) {
@@ -115,11 +113,20 @@ formElement.addEventListener("submit", (event) => {
   }
 
   resetValues();
-  renderTasks();
+  renderTasks(tasks);
 });
 
-searchButtonElement.addEventListener("click", () => {
-  const inputElement = document.createElement("input");
+searchElement.addEventListener("keyup", (event) => {
+  event.preventDefault();
+  const searchValue = event.target.value.toLowerCase();
+  var filterResult = tasks.filter((task) =>
+    task.toDo.toLowerCase().includes(searchValue)
+  );
+  renderTasks(filterResult);
 });
 
-renderTasks();
+document.addEventListener("DOMContentLoaded", () => {
+  tasks = JSON.parse(localStorage.getItem("tasks")) || [];
+  renderTasks(tasks);
+  updateTotalTasks();
+});
