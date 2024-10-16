@@ -1,5 +1,6 @@
 let tasks = [];
 
+// get all the element
 const taskElement = document.getElementById("todo");
 const descriptionElement = document.getElementById("description");
 const addButtonElement = document.getElementById("add-task");
@@ -9,9 +10,11 @@ const notificationElement = document.getElementById("notification");
 const totalElement = document.getElementById("total");
 const searchElement = document.getElementById("search-task");
 
+// flag to seperate add and edit operation
 let isEditing = false;
 let taskBeingEdited = null;
 
+// update total task count after each delete or add operation
 function updateTotalTasks() {
   totalElement.textContent = "Total Tasks: " + tasks.length;
 }
@@ -51,6 +54,7 @@ function renderTasks(tasks) {
   updateTotalTasks();
 }
 
+// rest all the vslues after operation
 function resetValues() {
   taskElement.value = "";
   descriptionElement.value = "";
@@ -59,6 +63,7 @@ function resetValues() {
   taskBeingEdited = null;
 }
 
+// delete task by id
 function deletTaskById(id) {
   tasks = tasks.filter((task) => task.id !== id);
   setTasksToLocalStorage(tasks);
@@ -69,6 +74,7 @@ function deletTaskById(id) {
   renderTasks(tasks);
 }
 
+// edit task by id
 function editTaskById(id) {
   const findTask = tasks.find((task) => task.id === id);
 
@@ -79,6 +85,7 @@ function editTaskById(id) {
   taskBeingEdited = findTask;
 }
 
+// set data to the local storage
 function setTasksToLocalStorage(data) {
   localStorage.setItem("tasks", JSON.stringify(data));
 }
@@ -116,13 +123,16 @@ formElement.addEventListener("submit", (event) => {
   renderTasks(tasks);
 });
 
+// search functionalty
 searchElement.addEventListener("keyup", (event) => {
   event.preventDefault();
   const searchValue = event.target.value.toLowerCase();
-  var filterResult = tasks.filter((task) =>
-    task.toDo.toLowerCase().includes(searchValue)
-  );
-  renderTasks(filterResult);
+  setTimeout(() => {
+    const filterResult = tasks.filter((task) =>
+      task.toDo.toLowerCase().includes(searchValue)
+    );
+    renderTasks(filterResult);
+  }, 1000);
 });
 
 document.addEventListener("DOMContentLoaded", () => {
